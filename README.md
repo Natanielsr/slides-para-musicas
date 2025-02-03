@@ -1,50 +1,76 @@
-# Welcome to your Expo app 👋
+# slides-para-musicas
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+An application developed with Expo and React Native to search for songs, add them to a list, and generate a PowerPoint (PPTX) slide file.
 
-## Get started
+📌 Features
 
-1. Install dependencies
+## 📌 Features
 
-   ```bash
-   npm install
-   ```
+- Search for songs and add them to a list
+- Generate a PowerPoint (PPTX) slide file with selected songs
+- Display song lyrics
+- Integration with system files
 
-2. Start the app
+## 🚀 Technologies Used
 
-   ```bash
-    npx expo start
-   ```
+This project was developed using the following technologies:
 
-In the output, you'll find options to open the app in a
+- [Expo](https://expo.dev/)
+- [React Native](https://reactnative.dev/)
+- [React Navigation](https://reactnavigation.org/)
+- [Axios](https://axios-http.com/)
+- [Expo File System](https://docs.expo.dev/versions/latest/sdk/filesystem/)
+- [Expo Fonts](https://docs.expo.dev/versions/latest/sdk/font/)
+- [Expo Haptics](https://docs.expo.dev/versions/latest/sdk/haptics/)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 📂 Project Structure
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+```
+slides-para-musicas/
+│-- app/
+│   ├── components/
+│   ├── screens/
+│   ├── assets/
+│   ├── hooks/
+│   ├── styles/
+│   ├── App.js
+│   ├── navigation.js
+│-- app.json
+│-- package.json
+│-- index.js
+│-- metro.config.js
+│-- tsconfig.json
+│-- android/
+│   ├── build.gradle
+│   ├── settings.gradle
+│   ├── app/
+│       ├── build.gradle
+│       ├── proguard-rules.pro
+│-- ...
 
-## Get a fresh project
+## 💻 How to Run the Project
 
-When you're ready, run:
+Make sure you have [Node.js](https://nodejs.org/) installed and [Expo CLI](https://docs.expo.dev/get-started/installation/) configured.
 
 ```bash
-npm run reset-project
+# Clone the repository
+git clone https://github.com/Natanielsr/slides-para-musicas.git
+
+# Access the project folder
+cd slides-para-musicas
+
+# Install dependencies
+npm install
+
+# Start the project
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 📜 License
 
-## Learn more
+This project is under the MIT license. Feel free to modify and distribute it.
 
-To learn more about developing your project with Expo, look at the following resources:
+---
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Made with ❤️ by [Niel Rodrigues](https://github.com/Natanielsr)!
 
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
