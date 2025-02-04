@@ -2,6 +2,8 @@
 
 An application developed with Expo and React Native to search for songs, add them to a list, and generate a PowerPoint (PPTX) slide file.
 
+[![Watch video on YouTube](https://img.youtube.com/vi/ibtcd_vtW9A/0.jpg)](https://www.youtube.com/watch?v=ibtcd_vtW9A)
+
 📌 Features
 
 ## 📌 Features
