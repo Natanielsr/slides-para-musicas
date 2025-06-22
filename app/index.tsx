@@ -41,6 +41,10 @@ export default function HomeScreen() {
     router.push('/searchmusic');
   }
 
+  const handlePressAddLinks= () =>{
+    router.push('/addlinks');
+  }
+
   const { toastRef, showToast } = useToast();
 
   const handlePressGenerateSlides = async () => {
@@ -132,7 +136,11 @@ export default function HomeScreen() {
         visible={isFileBoxVisible}
       />
       <Text style={styles.title}>Adicionar Músicas!</Text>
+     
       <ButtonGPT title="Pesquisar Música" onPress={handlePressAddMusic} iconName="search"/>
+      <View style={styles.btnLink}>
+        <ButtonGPT  title="Adicionar Links" onPress={handlePressAddLinks} iconName="link"/>
+      </View>
       <ScrollView style={styles.scroll}>
         <View style={styles.items}>
           {
@@ -236,6 +244,9 @@ const styles = StyleSheet.create({
     right: 0,
     paddingBottom: 20,
 
+  },
+  btnLink:{
+    paddingTop: 20
   }
 
 });
