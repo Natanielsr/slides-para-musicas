@@ -81,7 +81,7 @@ export default function SearchMusic(){
             })
             .catch((error) => {
                 console.error('Error ao buscar resultados dados:', error.message);
-                Alert.alert(error.message);
+                Alert.alert("Não foi possível se conectar ao servidor");
                 setIsTyping(false);
                 setIsSearching(false);
             });
