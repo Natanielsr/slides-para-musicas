@@ -1,4 +1,5 @@
 import React, { createContext, useState, ReactNode} from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 //Definição do tipo para os itens da lista
 interface ListItem{
@@ -30,7 +31,7 @@ export const GlobalListProvider: React.FC<GlobalListProviderPros> = ({children})
 
     const addItem = (item: Omit<ListItem, 'id'>) => {
         const newId = (lastId + 1).toString();
-        const newItem = {...item, id: newId};
+        const newItem = {...item, id: uuidv4()};
         setMusicList((prevList : ListItem[]) => [...prevList, newItem]);
         setLastId(lastId + 1);
     };
