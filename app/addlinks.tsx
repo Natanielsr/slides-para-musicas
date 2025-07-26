@@ -1,5 +1,5 @@
 import { globalStyles } from "@/constants/globalStyles";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, View, Text } from "react-native";
 import { useRef, useState, useContext } from 'react';
 import BackButton from "@/components/BackButton";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -27,23 +27,36 @@ export default function SearchMusic(){
 
     const handleAddLink = () => {
         if (inputLink.trim() !== '') {
-            addItem({'name': 'link', 'link': inputLink});
-            showToast('Link Adicionado!')
-        }
-        else{
-            showToast('Link inválido!')
+            const linksSeparados = inputLink.split(',')
+                                            .map(link => link.trim())
+                                            .filter(link => link.length > 0);
+
+            if (linksSeparados.length > 0) {
+                linksSeparados.forEach(link => {
+                    addItem({ name: 'link', link });
+                });
+                showToast('Links adicionados!');
+            } else {
+                showToast('Nenhum link válido!');
+            }
+        } 
+        else {
+            showToast('Link inválido!');
         }
     };
 
     return (
     <SafeAreaView style={globalStyles.container}>
         <BackButton></BackButton>
+        <Text>Adicione os links separados por virgula ex: www.link.com/, www.link2.com</Text>
         <TextInput 
             autoFocus={true}
             style={styles.input}
-            placeholder={'Adicionar um Link'}
+            placeholder={'Adicionar um Link!'}
             value={inputLink}
             onChangeText={setInputLink}
+            multiline={true}
+            numberOfLines={5}
             />
         <View style={styles.btn}>
             <ButtonGPT title="Adicionar" onPress={handleAddLink} iconName="add"/>
@@ -64,6 +77,8 @@ const styles = StyleSheet.create({
         borderRadius: 60,
         borderColor: '#000000',
         borderWidth: 2,
+        height: 300,
+        
     },
     btn :{
         paddingTop: 20
