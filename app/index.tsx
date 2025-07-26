@@ -30,6 +30,7 @@ export default function HomeScreen() {
   const [titleLyricSelected, setTitleLyricSelected] = useState('');
   const [fileNameGenerated, setFileNameGenerated] = useState('');
   const [fileUriGenerated, setFileUriGenerated] = useState('');
+  const [fileUrlGenerated, setFileUrlGenerated] = useState('');
   const [disabledGenerate, setDisableGenerated] = useState(false);
 
   if(!context){
@@ -62,9 +63,21 @@ export default function HomeScreen() {
       console.log('Generating slides...');
       showToast('Gerando Slides...');
 
+      var data
       //gerando slides
-      const data = await generateSlides(MusicListjson);
-      console.log('Slides generated:', JSON.stringify(data));
+      try {
+        data = await generateSlides(MusicListjson);
+        showToast('Slides gerados com sucesso!');
+        console.log('Slides generated:', JSON.stringify(data));
+      }
+      catch (error: any) {
+        if (error.message && (error.message.includes('Network Error') || error.message.includes('timeout') || error.message.includes('Failed to fetch'))) {
+          showToast('Erro de conexão com o servidor. Verifique sua internet.');
+        } else {
+          showToast('Erro ao gerar slides');
+        }
+        console.error('Error generating slides:', error);
+      }
       
       const file_url = data.file_url;
       const fileName = data.file_name;
@@ -72,8 +85,8 @@ export default function HomeScreen() {
 
       setFileNameGenerated(fileName);
       setFileUriGenerated(file_uri);
+      setFileUrlGenerated(file_url);
 
-      showToast('Slides gerados com sucesso!');
       
       download(file_url, file_uri, showToast)
         .then(()=>{
@@ -83,6 +96,7 @@ export default function HomeScreen() {
         .catch((e)=>{
           console.error(e.message);
           Alert.alert('Erro ao baixar o arquivo:', e.message);
+          setDisableGenerated(false);
         });
 
       
@@ -124,13 +138,15 @@ export default function HomeScreen() {
     moveItem(index, direction);
   }
 
+  console.log('IDs:', musicList.map(i => i.id));
+
    
   return (
     <View style={[styles.container]}>
       <StatusBarSpacing/>
       <FileBox
         fileName={fileNameGenerated}
-        onSave={ () => handleSave(fileUriGenerated, fileNameGenerated, showToast)}
+        onSave={ () => handleSave(fileUriGenerated, fileNameGenerated, fileUrlGenerated, showToast)}
         onShare={() =>handleShare(fileUriGenerated)}
         onCancel={() =>handleCancelShare(setFileBoxVisible)}
         visible={isFileBoxVisible}
