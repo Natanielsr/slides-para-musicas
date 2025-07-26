@@ -3,10 +3,20 @@ import { shareAsync } from 'expo-sharing';
 import { Platform } from 'react-native';
 
 export const download = async (file_url: string, file_uri: string, showToast: (message: string) => void) => {
-  showToast('Baixando Slide!');
-  const download = await FileSystem.downloadAsync(file_url, file_uri);
-  console.log('Slide downloaded successfully: ', download.uri);
-  showToast('Slides baixados com sucesso!');
+
+  if  (Platform.OS === 'web') {
+    downloadWeb(file_url, showToast);
+  }
+  else{
+    try {
+      const download = await FileSystem.downloadAsync(file_url, file_uri);
+      console.log('Slide downloaded successfully:', download.uri);
+      showToast('Slides baixados com sucesso!');
+    } catch (error) {
+      console.error('Erro ao baixar slide:', error);
+      showToast('Erro ao baixar slide.');
+    }
+  }
 };
 
 export const save = async (uri: string, filename: string, showToast: (message: string) => void) => {
@@ -31,8 +41,14 @@ export const save = async (uri: string, filename: string, showToast: (message: s
   }
 };
 
-export const handleSave = (fileUriGenerated: string, fileNameGenerated: string, showToast: (message: string) => void) => {
-  save(fileUriGenerated, fileNameGenerated, showToast);
+export const handleSave = (fileUriGenerated: string, fileNameGenerated: string, file_url: string, showToast: (message: string) => void) => {
+  if  (Platform.OS === 'web') {
+    downloadWeb(file_url, showToast);
+  }
+  else{
+    save(fileUriGenerated, fileNameGenerated, showToast);
+  }
+    
 };
 
 export const handleShare = (fileUriGenerated: string) => {
@@ -42,3 +58,17 @@ export const handleShare = (fileUriGenerated: string) => {
 export const handleCancelShare = (setFileBoxVisible: (visible: boolean) => void) => {
   setFileBoxVisible(false);
 };
+
+export const downloadWeb = (file_url: string, showToast: (message: string) => void) => {
+
+  const link = document.createElement('a');
+  link.href = file_url;
+  link.download = "slides.pptx";
+  link.target = '_blank';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  showToast('Download iniciado no navegador.!');
+
+}
