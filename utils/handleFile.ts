@@ -53,7 +53,17 @@ export const handleSave = (fileUriGenerated: string, fileNameGenerated: string, 
 
 export const handleShare = (fileUriGenerated: string, file_url: string) => {
   if (Platform.OS === 'web') {
-    shareAsync(file_url);
+    // Verifica se o navegador suporta a API de share
+    if (navigator.share) {
+      navigator.share({
+        title: 'Compartilhar arquivo',
+        url: file_url,
+      });
+    } else {
+      // Fallback para PC: abre o link em nova aba ou copia
+      window.open(file_url, '_blank');
+      alert('O link foi aberto em uma nova aba!');
+    }
   }else{
     shareAsync(fileUriGenerated);
   }
