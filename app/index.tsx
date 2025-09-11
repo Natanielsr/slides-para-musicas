@@ -147,7 +147,7 @@ export default function HomeScreen() {
       <FileBox
         fileName={fileNameGenerated}
         onSave={ () => handleSave(fileUriGenerated, fileNameGenerated, fileUrlGenerated, showToast)}
-        onShare={() =>handleShare(fileUriGenerated)}
+        onShare={() =>handleShare(fileUriGenerated, fileUrlGenerated)}
         onCancel={() =>handleCancelShare(setFileBoxVisible)}
         visible={isFileBoxVisible}
       />
