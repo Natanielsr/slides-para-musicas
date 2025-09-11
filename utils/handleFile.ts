@@ -51,8 +51,13 @@ export const handleSave = (fileUriGenerated: string, fileNameGenerated: string, 
     
 };
 
-export const handleShare = (fileUriGenerated: string) => {
-  shareAsync(fileUriGenerated);
+export const handleShare = (fileUriGenerated: string, file_url: string) => {
+  if (Platform.OS === 'web') {
+    shareAsync(file_url);
+  }else{
+    shareAsync(fileUriGenerated);
+  }
+  
 };
 
 export const handleCancelShare = (setFileBoxVisible: (visible: boolean) => void) => {
