@@ -29,7 +29,11 @@ export default function AddLyric(){
         if (inputLyric.trim() !== '') {
 
             if (inputLyric.length > 0) {
-                addItem({ name: 'Letra', lyric: inputLyric, link: "" });
+                var lyricStart = inputLyric.substring(0, 40);
+                if (lyricStart.length >= 40)
+                    lyricStart +="...";
+
+                addItem({ name: lyricStart, lyric: inputLyric, link: "" });
                 showToast('Letra adicionada!');
             } else {
                 showToast('Nenhum link válido!');
