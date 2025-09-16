@@ -6,7 +6,8 @@ const BASE_URL = config.BASE_URL;
 // Definição do tipo para musicList
 interface MusicItem {
     name: string;
-    link: string;
+    link?: string;
+    lyric?: string;
 }
 
 interface MusicList {
