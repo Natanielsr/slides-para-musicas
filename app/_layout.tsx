@@ -34,6 +34,7 @@ export default function RootLayout() {
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="searchmusic" options={{ headerShown: false }} />
         <Stack.Screen name="addlinks" options={{ headerShown: false }} />
+        <Stack.Screen name="addlyric" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
      <StatusBar style="dark" />
