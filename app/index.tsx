@@ -42,8 +42,12 @@ export default function HomeScreen() {
     router.push('/searchmusic');
   }
 
-  const handlePressAddLinks= () =>{
+  const handlePressAddLinks = () =>{
     router.push('/addlinks');
+  }
+
+  const handlePressAddLyric = () =>{
+    router.push('/addlyric');
   }
 
   const { toastRef, showToast } = useToast();
@@ -59,7 +63,14 @@ export default function HomeScreen() {
     }
 
     try{
-      const MusicListjson = { params : musicList };
+      const MusicListjson = {
+        params: musicList.map(({ link, ...rest }) =>
+          link && link.trim() !== ""
+            ? { ...rest, link }
+            : { ...rest }
+        )
+      };
+      console.log('MusicListjson:', JSON.stringify(MusicListjson));
       console.log('Generating slides...');
       showToast('Gerando Slides...');
 
@@ -108,22 +119,32 @@ export default function HomeScreen() {
     }
   };
 
-  const handlePressItem = (title: string, link : string) =>{
+  const handlePressItem = (title: string, link : string, lyric : string) =>{
           setMessageBoxVisible(true);
           setContentLyricSelected('...');
   
           //set title and link selected
           setTitleLyricSelected(title);
-  
-          fetchLyric(link)
+
+          console.log('link: ', link);
+          console.log('lyric: ', lyric);
+
+          if (lyric && lyric.length > 0){
+             setContentLyricSelected(lyric);
+          }
+          else if (link != "Letra Adicionada"){
+            fetchLyric(link)
               .then((data) =>{
                   setContentLyricSelected(data);
               })
               .catch((error) =>{
                   console.error('Error fetching lyrics:', error.message);
                   Alert.alert('Error: ', error.message);
-              });
-  
+            });
+          }
+          else{
+            setContentLyricSelected('Nenhuma letra disponível para esta música.');
+          }
       }
   
 
@@ -157,6 +178,9 @@ export default function HomeScreen() {
       <View style={styles.btnLink}>
         <ButtonGPT  title="Adicionar Links" onPress={handlePressAddLinks} iconName="link"/>
       </View>
+      <View style={styles.btnLink}>
+        <ButtonGPT  title="Adicionar Letra" onPress={handlePressAddLyric} iconName="lyrics"/>
+      </View>
       <ScrollView style={styles.scroll}>
         <View style={styles.items}>
           {
@@ -164,7 +188,8 @@ export default function HomeScreen() {
               return <MusicItem 
                         key={item.id}
                         title={item.name}
-                        description={item.link}
+                        description={item.link ? item.link : 'Letra Adicionada'}
+                        lyric ={item.lyric ? item.lyric : ''}
                         itemIndex={index}
                         onPress={handlePressItem}
                         onDelete={() => removeItem(item.id)}
