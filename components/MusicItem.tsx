@@ -4,16 +4,17 @@ import { View, Text, StyleSheet, Button, GestureResponderEvent, TouchableOpacity
 interface Props {
   title: string;
   description: string;
+  lyric: string;
   itemIndex: number;
-  onPress: (title: string, link: string, event: GestureResponderEvent) => void;
+  onPress: (title: string, link: string, lyric: string, event: GestureResponderEvent) => void;
   onDelete: (event: GestureResponderEvent) => void;
   onMove: (index: number, direction: number, event: GestureResponderEvent) => void;
 }
 
-export const MusicItem: React.FC<Props> = ({ title, description, itemIndex, onPress, onDelete, onMove }) => {
+export const MusicItem: React.FC<Props> = ({ title, description, lyric, itemIndex, onPress, onDelete, onMove }) => {
 
   const handlePress = (event: GestureResponderEvent) => {
-      onPress(title, description, event);
+      onPress(title, description, lyric ?? "", event);
     };
 
   const handlePressonMove = ()=> {
