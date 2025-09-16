@@ -9,7 +9,7 @@ import ToastMessage, {ToastMessageHandle} from "@/components/ToastMessage";
 
 
 
-export default function SearchMusic(){
+export default function AddLinks(){
     const [inputLink, setInputLink] = useState('');
     const context = useContext(GlobalListContext);
     const toastRef = useRef<ToastMessageHandle | null>(null);
@@ -21,7 +21,7 @@ export default function SearchMusic(){
     }
 
     if(!context){
-        throw new Error('SearchMusic must be used within a GlobalListProvider');
+        throw new Error('AddLinks must be used within a GlobalListProvider');
     }
     const { addItem } = context;
 
