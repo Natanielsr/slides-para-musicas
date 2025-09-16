@@ -6,6 +6,7 @@ interface ListItem{
     id: string;
     name: string;
     link: string;
+    lyric?: string;
 }
 
 //Definição do tipo para o contexto
@@ -31,7 +32,12 @@ export const GlobalListProvider: React.FC<GlobalListProviderPros> = ({children})
 
     const addItem = (item: Omit<ListItem, 'id'>) => {
         const newId = (lastId + 1).toString();
-        const newItem = {...item, id: uuidv4()};
+        const newItem: ListItem = {
+          id: uuidv4(),
+          name: item.name,
+          link: item.link ?? "", // Ensures link is always a string
+          lyric: item.lyric,
+        };
         setMusicList((prevList : ListItem[]) => [...prevList, newItem]);
         setLastId(lastId + 1);
     };
